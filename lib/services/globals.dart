@@ -1,0 +1,4 @@
+const String baseURL = "https://djljpnelwbwpuwcuraok.supabase.co";
+
+const String keyAccessToken =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRqbGpwbmVsd2J3cHV3Y3VyYW9rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjE0MTAxNTQsImV4cCI6MjAzNjk4NjE1NH0.qiM9UqiWm5swKddQhBPJKADC48dm99rjZe6yBFMvvII";
