@@ -4,6 +4,7 @@ import 'package:expenses_tracker/helper/helper.dart';
 import 'package:expenses_tracker/screen/add_screen.dart';
 import 'package:expenses_tracker/screen/home.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
@@ -110,34 +111,136 @@ class SettingScreenState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: const Text('Settings'),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            GestureDetector(
-              onTap: () async {
-                bool confirmed = await _showConfirmationDialog();
-                if (confirmed) {
-                  _resetDatabase();
-                }
-              },
-              child: const Card(
-                child: Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Row(
-                    children: [
-                      Icon(Icons.refresh),
-                      SizedBox(width: 10),
-                      Text('Reset'),
-                    ],
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: () async {
+                  showSuccessSnackbar(context, Colors.black, "Success");
+                },
+                child: Card(
+                  margin:
+                      const EdgeInsets.all(0.0), // Remove the default margin
+                  shape: RoundedRectangleBorder(
+                    side: const BorderSide(
+                        color: Colors.grey, width: 1.0), // Grey border
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  color: Colors.white,
+                  elevation: 0.0,
+                  child: const Padding(
+                    padding: EdgeInsets.all(20.0), // Padding all around
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Show Profile',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        FaIcon(
+                          FontAwesomeIcons.arrowRight,
+                          color: Colors.black,
+                          size: 16.0, // Adjust the size as needed
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+              const SizedBox(
+                height: 10,
+              ),
+              GestureDetector(
+                onTap: () async {
+                  showSuccessSnackbar(context, Colors.black, "Success");
+                },
+                child: Card(
+                  margin:
+                      const EdgeInsets.all(0.0), // Remove the default margin
+                  shape: RoundedRectangleBorder(
+                    side: const BorderSide(
+                        color: Colors.grey, width: 1.0), // Grey border
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  color: Colors.white,
+                  elevation: 0.0,
+                  child: const Padding(
+                    padding: EdgeInsets.all(20.0), // Padding all around
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Backup Data',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        FaIcon(
+                          FontAwesomeIcons.arrowRight,
+                          color: Colors.black,
+                          size: 16.0, // Adjust the size as needed
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              GestureDetector(
+                onTap: () async {
+                  bool confirmed = await _showConfirmationDialog();
+                  if (confirmed) {
+                    _resetDatabase();
+                  }
+                },
+                child: Card(
+                  margin:
+                      const EdgeInsets.all(0.0), // Remove the default margin
+                  shape: RoundedRectangleBorder(
+                    side: const BorderSide(
+                        color: Colors.grey, width: 1.0), // Grey border
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  color: Colors.white,
+                  elevation: 0.0,
+                  child: const Padding(
+                    padding: EdgeInsets.all(20.0), // Padding all around
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Reset Database',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        FaIcon(
+                          FontAwesomeIcons.arrowRight,
+                          color: Colors.black,
+                          size: 16.0, // Adjust the size as needed
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
