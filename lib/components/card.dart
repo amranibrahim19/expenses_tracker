@@ -12,15 +12,14 @@ Widget buildExpenseCard({
   return Expanded(
     child: Card(
       margin: EdgeInsets.zero,
-      elevation: 5,
       color: color,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0),
+        borderRadius: BorderRadius.circular(8.0),
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(16.0),
+        borderRadius: BorderRadius.circular(8.0),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(10.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -29,7 +28,7 @@ Widget buildExpenseCard({
                 style: const TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 16,
-                  color: Colors.black,
+                  color: Colors.white,
                 ),
               ),
               const SizedBox(height: 8.0),
@@ -42,55 +41,52 @@ Widget buildExpenseCard({
                     return Center(child: Text('Error: ${snapshot.error}'));
                   } else if (snapshot.hasData) {
                     final currentAmount = snapshot.data!;
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    return Row(
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           'RM${currentAmount.toStringAsFixed(2)}',
                           style: const TextStyle(
-                            color: Colors.black,
+                            color: Colors.white,
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+                        const SizedBox(width: 15.0),
                         if (previousAmount != null && previousPeriodLabel != null && currentPeriodLabel != null)
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: ExpenseChangeIndicator(
-                              currentAmount: currentAmount,
-                              previousAmount: previousAmount,
-                              currentPeriodLabel: currentPeriodLabel,
-                              previousPeriodLabel: previousPeriodLabel,
-                            ),
-                          ),
-                      ],
-                    );
-                  } else if (previousAmount != null && previousPeriodLabel != null && currentPeriodLabel != null) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'RM0.00',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: ExpenseChangeIndicator(
-                            currentAmount: 0.0,
+                          ExpenseChangeIndicator(
+                            currentAmount: currentAmount,
                             previousAmount: previousAmount,
                             currentPeriodLabel: currentPeriodLabel,
                             previousPeriodLabel: previousPeriodLabel,
                           ),
+                      ],
+                    );
+                  } else if (previousAmount != null && previousPeriodLabel != null && currentPeriodLabel != null) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'RM0.00',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                          ),
+                        ),
+                        ExpenseChangeIndicator(
+                          currentAmount: 0.0,
+                          previousAmount: previousAmount,
+                          currentPeriodLabel: currentPeriodLabel,
+                          previousPeriodLabel: previousPeriodLabel,
                         ),
                       ],
                     );
                   } else {
-                    return const Text(
+                    return Text(
                       'RM0.00',
                       style: TextStyle(
-                        color: Colors.black,
+                        color: Colors.white,
+                        fontSize: 12,
                       ),
                     );
                   }
@@ -103,3 +99,4 @@ Widget buildExpenseCard({
     ),
   );
 }
+

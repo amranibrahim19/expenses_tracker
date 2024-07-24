@@ -28,19 +28,26 @@ class UploadButtonState extends State<UploadButton> {
         onPressed:
             _isButtonDisabled || widget.isLoading ? null : _handleButtonPress,
         style: ElevatedButton.styleFrom(
-          foregroundColor: Colors.black,
-          //#e0ecff
-          backgroundColor: const Color(0xffffe0a3),
+          backgroundColor: Colors.white, // Text color
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10), // Set border radius
+            side: const BorderSide(
+                color: Colors.black, width: 1.5), // Border color and width
           ),
         ),
         child: widget.isLoading
             ? const CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
               )
-            : Text(widget.text),
+            : Text(
+                widget.text,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                  color: Colors.black,
+                ),
+              ),
       ),
     );
   }

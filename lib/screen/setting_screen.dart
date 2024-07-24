@@ -1,5 +1,7 @@
+import 'package:expenses_tracker/components/bottom_menu.dart';
 import 'package:expenses_tracker/components/snackbar.dart';
 import 'package:expenses_tracker/helper/helper.dart';
+import 'package:expenses_tracker/screen/add_screen.dart';
 import 'package:expenses_tracker/screen/home.dart';
 import 'package:flutter/material.dart';
 
@@ -11,8 +13,15 @@ class SettingScreen extends StatefulWidget {
 }
 
 class SettingScreenState extends State<SettingScreen> {
+  int _currentIndex = 1;
   void _refreshExpenses() {
     setState(() {});
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
   }
 
   @override
@@ -130,6 +139,35 @@ class SettingScreenState extends State<SettingScreen> {
             ),
           ],
         ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: SizedBox(
+        height: 70.0,
+        width: 70.0,
+        child: FloatingActionButton(
+          tooltip: 'Increment',
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const AddExpenseScreen(),
+              ),
+            ).then((_) {
+              // Refresh the expenses list after returning from AddExpenseScreen
+              _refreshExpenses();
+            });
+          },
+          foregroundColor: Colors.white,
+          backgroundColor: Colors.black,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(100.0),
+          ),
+          child: const Icon(Icons.add, size: 32),
+        ),
+      ),
+      bottomNavigationBar: BottomMenu(
+        currentIndex: _currentIndex,
+        onTap: _onItemTapped,
       ),
     );
   }

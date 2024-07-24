@@ -2,13 +2,13 @@ import 'dart:io';
 
 import 'package:expenses_tracker/class/category.dart';
 import 'package:expenses_tracker/class/expenses.dart';
+import 'package:expenses_tracker/components/input_decoration.dart';
 import 'package:expenses_tracker/components/pick_file.dart';
 import 'package:expenses_tracker/components/save_button.dart';
 import 'package:expenses_tracker/components/snackbar.dart';
 import 'package:expenses_tracker/helper/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:uuid/uuid.dart';
 
 class EditExpenseScreen extends StatefulWidget {
   final Expense expense;
@@ -88,9 +88,8 @@ class EditExpenseScreenState extends State<EditExpenseScreen> {
   Future<void> _saveExpense() async {
     if (_formKey.currentState?.validate() ?? false) {
       _formKey.currentState?.save();
-      var uuid = const Uuid();
       final updatedExpense = Expense(
-        id: uuid.v1(),
+        id: widget.expense.id,
         title: _title!,
         description: _descriptionController.text,
         amount: _amount!,
@@ -130,7 +129,7 @@ class EditExpenseScreenState extends State<EditExpenseScreen> {
               children: [
                 TextFormField(
                   controller: _titleController,
-                  decoration: const InputDecoration(labelText: 'Title'),
+                  decoration: inputDecoration('Title', hintText: 'Enter title'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter a title';
@@ -141,9 +140,11 @@ class EditExpenseScreenState extends State<EditExpenseScreen> {
                     _title = value;
                   },
                 ),
+                const SizedBox(height: 20),
                 TextFormField(
                   controller: _descriptionController,
-                  decoration: const InputDecoration(labelText: 'Description'),
+                  decoration: inputDecoration('Description',
+                      hintText: 'Enter description'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter a description';
@@ -151,9 +152,11 @@ class EditExpenseScreenState extends State<EditExpenseScreen> {
                     return null;
                   },
                 ),
+                const SizedBox(height: 20),
                 TextFormField(
                   controller: _amountController,
-                  decoration: const InputDecoration(labelText: 'Amount'),
+                  decoration:
+                      inputDecoration('Amount', hintText: 'Enter amount'),
                   keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -169,12 +172,11 @@ class EditExpenseScreenState extends State<EditExpenseScreen> {
                     _amount = double.tryParse(value ?? '');
                   },
                 ),
+                const SizedBox(height: 20),
                 TextFormField(
                   controller: _dateController,
-                  decoration: const InputDecoration(
-                    labelText: 'Expense Date',
-                    hintText: 'Select a date',
-                  ),
+                  decoration: inputDecoration('Expense Date',
+                      hintText: 'Select a date'),
                   readOnly: true,
                   onTap: () => _selectDate(context),
                 ),
@@ -186,15 +188,14 @@ class EditExpenseScreenState extends State<EditExpenseScreen> {
                       _selectedCategory = newValue;
                     });
                   },
-                  decoration: const InputDecoration(labelText: 'Category'),
+                  decoration: inputDecoration('Category',
+                      hintText: 'Select a category'),
                   items: categories
                       .map<DropdownMenuItem<Category>>((Category category) {
                     return DropdownMenuItem<Category>(
                       value: category,
                       child: Row(
                         children: [
-                          Icon(category.icon,
-                              color: categoryColors[category.name]),
                           const SizedBox(width: 10),
                           Text(category.name),
                         ],
@@ -206,19 +207,14 @@ class EditExpenseScreenState extends State<EditExpenseScreen> {
                 if (_image != null)
                   Image.file(
                     _image!,
-                    height: 150,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                   ),
                 const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: _pickImage,
-                  child: const Text('Upload Receipt'),
-                ),
+                UploadButton(onPressed: _pickImage, text: 'Select Receipt'),
                 const SizedBox(height: 20),
-                ElevatedButton(
+                SaveButton(
                   onPressed: _saveExpense,
-                  child: const Text('Save Expense'),
+                  text: 'Update Expense',
                 ),
               ],
             ),

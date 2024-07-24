@@ -46,4 +46,15 @@ class Expense {
       type: map['type'],
     );
   }
+
+  // factory Expense.fromJson(Map<String, dynamic> json) {
+  //   return Expense(
+  //     id: json['id'],
+  //     title: json['title'],
+  //     amount: json['amount'],
+  //     expenseDate: DateTime.parse(json['expenseDate']),
+  //     imagePath: json['imagePath'],
+  //     category: json['category'],
+  //   );
+  // }
 }

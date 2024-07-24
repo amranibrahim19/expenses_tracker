@@ -7,13 +7,15 @@ class ExpensesRepository {
 
   ExpensesRepository._init();
 
-  Future<SharedPreferences> get _prefs async => await SharedPreferences.getInstance();
+  Future<SharedPreferences> get _prefs async =>
+      await SharedPreferences.getInstance();
 
   Future<void> create(Expense expense) async {
     final prefs = await _prefs;
     final expenses = await readAllExpenses();
     expenses.add(expense);
-    await prefs.setString('expenses', jsonEncode(expenses.map((e) => e.toMap()).toList()));
+    await prefs.setString(
+        'expenses', jsonEncode(expenses.map((e) => e.toMap()).toList()));
   }
 
   Future<List<Expense>> readAllExpenses() async {
@@ -27,10 +29,17 @@ class ExpensesRepository {
   Future<void> update(Expense expense) async {
     final prefs = await _prefs;
     final expenses = await readAllExpenses();
+
+    // Find the index of the expense to update
     final index = expenses.indexWhere((e) => e.id == expense.id);
+
     if (index != -1) {
+      // Replace the existing expense with the updated one
       expenses[index] = expense;
-      await prefs.setString('expenses', jsonEncode(expenses.map((e) => e.toMap()).toList()));
+
+      // Save the updated list back to preferences
+      await prefs.setString(
+          'expenses', jsonEncode(expenses.map((e) => e.toMap()).toList()));
     }
   }
 
@@ -38,7 +47,8 @@ class ExpensesRepository {
     final prefs = await _prefs;
     final expenses = await readAllExpenses();
     final updatedExpenses = expenses.where((e) => e.id != id).toList();
-    await prefs.setString('expenses', jsonEncode(updatedExpenses.map((e) => e.toMap()).toList()));
+    await prefs.setString(
+        'expenses', jsonEncode(updatedExpenses.map((e) => e.toMap()).toList()));
   }
 
   // export to json

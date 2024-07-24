@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ExpenseChangeIndicator extends StatelessWidget {
   final double currentAmount;
@@ -28,21 +29,23 @@ class ExpenseChangeIndicator extends StatelessWidget {
     final bool showIndicator = changePercentage != 0;
 
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(0.0),
       child: Visibility(
         visible: showIndicator,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const SizedBox(height: 10.0),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Icon(
-                  isIncrease ? Icons.arrow_upward : Icons.arrow_downward,
+                FaIcon(
+                  isIncrease
+                      ? FontAwesomeIcons.arrowTrendUp
+                      : FontAwesomeIcons.arrowTrendDown,
                   color: isIncrease ? Colors.green : Colors.red,
+                  size: 12,
                 ),
-                const SizedBox(width: 8.0),
+                const SizedBox(width: 5.0),
                 Text(
                   '${isIncrease ? '+' : ''}${changePercentage.toStringAsFixed(2)}%',
                   style: TextStyle(
